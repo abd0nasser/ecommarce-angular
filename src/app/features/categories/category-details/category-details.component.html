@@ -1,0 +1,12 @@
+<div class="page-banner"><div class="w"><nav class="pb-crumb"><a routerLink="/">Home</a><span>/</span><a routerLink="/categories">Categories</a><span>/</span><span>{{ cat()?.name || 'Loading...' }}</span></nav><div class="pb-row"><div class="pb-ic">@if (cat()?.image) { <img [src]="cat()!.image" [alt]="cat()!.name" style="width:44px;height:44px;object-fit:contain"> } @else { 🗂 }</div><div><h1>{{ cat()?.name || 'Loading...' }}</h1><p>Choose a subcategory to browse products</p></div></div></div></div>
+<div class="w">
+<a class="back-link" routerLink="/categories">← Back to Categories</a>
+@if (loading()) { <div class="empty"><div class="ebox">⏳</div><h3>Loading subcategories...</h3></div> }
+@else if (subs().length) {
+  <div class="sub-grid">@for (s of subs(); track s._id) {
+    <a class="sub-card" [routerLink]="['/products']" [queryParams]="{subcategory: s._id}"><h3>{{ s.name }}</h3><span class="browse">Browse Products →</span></a>
+  }</div>
+} @else {
+  <div class="empty"><div class="ebox">📁</div><h3>No Subcategories Found</h3><p>This category doesn't have any subcategories yet.</p><a class="btn" [routerLink]="['/products']" [queryParams]="{category: cat()?._id}">View All Products in {{ cat()?.name }}</a></div>
+}
+</div>

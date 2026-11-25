@@ -1,0 +1,31 @@
+<div class="page-head"><div class="crumb"><a routerLink="/">Home</a><span>/</span><a routerLink="/cart">Cart</a><span>/</span><b>Checkout</b></div><h1>Checkout</h1><p>Almost done — enter your shipping details</p></div>
+@if (cart(); as c) {
+<div class="co-wrap">
+<form class="co-form" novalidate (submit)="$event.preventDefault(); submit()">
+  <div class="co-card">
+    <h3>Shipping Address</h3>
+    <label>Address</label><input [formField]="f.details"><app-field-errors [field]="f.details" />
+    <label>Phone</label><input placeholder="01012345678" [formField]="f.phone"><app-field-errors [field]="f.phone" />
+    <label>City</label><input [formField]="f.city"><app-field-errors [field]="f.city" />
+  </div>
+  <div class="co-card">
+    <h3>Payment Method</h3>
+    <div class="pay">
+      <label [class.sel]="model().method === 'cash'"><input type="radio" value="cash" [formField]="f.method"><span><b>Cash on Delivery</b><small>Pay when your order arrives</small></span></label>
+      <label [class.sel]="model().method === 'online'"><input type="radio" value="online" [formField]="f.method"><span><b>Pay Online</b><small>Credit / debit card via secure checkout</small></span></label>
+    </div>
+  </div>
+  <div class="err">{{ err() }}</div>
+  <button class="btn big" [disabled]="f().invalid() || busy()">{{ busy() ? 'Processing…' : 'Place Order' }}</button>
+</form>
+<div class="sum co-sum">
+  <h3>Order Summary</h3>
+  @for (i of c.data.products; track i.product.id) {
+    <div class="co-item"><img [src]="i.product.imageCover" [alt]="i.product.title"><div><b>{{ i.product.title }}</b><span>× {{ i.count }}</span></div><b>{{ (i.price * i.count) | egp }}</b></div>
+  }
+  <div class="sum-row"><span>Items</span><b>{{ c.numOfCartItems }}</b></div>
+  <div class="sum-row free"><span>Shipping</span><b>Free</b></div>
+  <div class="sum-total"><span>Total</span><span class="t">{{ c.data.totalCartPrice | egp }}</span></div>
+</div>
+</div>
+} @else if (!loading()) { <div class="empty big-empty"><div class="empty-ic">🛒</div><h3>Your cart is empty</h3><p>Add items before checking out.</p><a class="btn" routerLink="/products">Shop products</a></div> }

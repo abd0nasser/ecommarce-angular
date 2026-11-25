@@ -1,0 +1,9 @@
+<div class="card">
+  <button class="heart" [class.on]="store.wish().has(p().id)" aria-label="Wishlist" (click)="store.toggleWish(p().id)">♥</button>
+  <a [routerLink]="['/products', p().id]"><img appImgFallback class="im" loading="lazy" [src]="p().imageCover" [alt]="p().title"></a>
+  <div class="b"><span class="c">{{ p().category?.name }}</span>
+    <a [routerLink]="['/products', p().id]"><h3>{{ p().title.split(' ').slice(0, 3).join(' ') }}</h3></a>
+    <div class="row"><span class="price">{{ (p().priceAfterDiscount || p().price) | egp }}
+      @if (p().priceAfterDiscount) { <span class="old">{{ p().price }}</span> }</span><span>★ {{ p().ratingsAverage }}</span></div>
+    <button class="btn sm" (click)="store.addCart(p().id)">Add to cart</button></div>
+</div>

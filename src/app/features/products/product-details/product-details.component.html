@@ -1,0 +1,26 @@
+@if (p(); as p) {
+<div class="breadcrumb"><a routerLink="/">Home</a><span>/</span><a routerLink="/products">Products</a><span>/</span><a [routerLink]="['/categories', p.category?._id]">{{ p.category?.name }}</a><span>/</span><b>{{ p.title }}</b></div>
+<div class="det">
+  <div class="gallery">
+    <img class="main" [src]="main()" [alt]="p.title">
+    <div class="th">@for (i of [p.imageCover].concat(p.images); track i) { <img [src]="i" alt="" (click)="main.set(i)"> }</div>
+  </div>
+  <div class="info">
+    <div class="tags"><a class="tag" [routerLink]="['/categories', p.category?._id]">{{ p.category?.name }}</a>@if (p.brand) { <a class="tag" [routerLink]="['/brands', p.brand._id]">{{ p.brand.name }}</a> }</div>
+    <h1>{{ p.title }}</h1>
+    <div class="rating"><span class="stars">★★★★★</span><b>{{ p.ratingsAverage }}</b><span>({{ p.ratingsQuantity }} reviews)</span></div>
+    <p class="desc">{{ p.description }}</p>
+    <div class="price-row"><span class="price">{{ (p.priceAfterDiscount || p.price) | egp }}</span>@if (p.priceAfterDiscount) { <span class="old">{{ p.price | egp }}</span><span class="save">Save {{ ((p.price - p.priceAfterDiscount) / p.price * 100) | number:'1.0-0' }}%</span> }</div>
+    <p class="stock">{{ p.quantity > 0 ? p.quantity + ' in stock' : 'Out of stock' }}</p>
+    <div class="actions">
+      <div class="qty"><button (click)="qty.set(Math.max(1, qty() - 1))">−</button><b>{{ qty() }}</b><button (click)="qty.set(Math.min(p.quantity, qty() + 1))">+</button></div>
+      <button class="btn" (click)="addToCart()">Add to cart</button>
+      <button class="btn alt" (click)="buyNow()">Buy now</button>
+      <button class="btn out" (click)="store.toggleWish(p.id)">{{ store.wish().has(p.id) ? 'Remove from wishlist' : 'Add to wishlist' }}</button>
+    </div>
+    <div class="meta"><span>SKU: {{ p.id }}</span><span>Sold: {{ p.sold }}</span></div>
+  </div>
+</div>
+@if (related().length) { <section class="sec"><div class="h"><h2>More from {{ p.category?.name }}</h2><a routerLink="/products">See all</a></div>
+  <div class="grid">@for (r of related(); track r.id) { <app-product-card [p]="r" /> }</div></section> }
+} @else { <div class="ld">Loading…</div> }

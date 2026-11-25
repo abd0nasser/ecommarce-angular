@@ -1,0 +1,35 @@
+import { Routes } from '@angular/router';
+import { authGuard } from '@core/guards/auth.guard';
+
+export const routes: Routes = [
+  { path: '', title: 'Home – FreshCart', loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent) },
+  { path: 'products', title: 'Products – FreshCart', loadComponent: () => import('./features/products/product-list/product-list.component').then(m => m.ProductListComponent) },
+  { path: 'products/:id', title: 'Product – FreshCart', loadComponent: () => import('./features/products/product-details/product-details.component').then(m => m.ProductDetailsComponent) },
+  { path: 'search', title: 'Search – FreshCart', loadComponent: () => import('./features/search/search.component').then(m => m.SearchComponent) },
+  { path: 'brands', title: 'Brands – FreshCart', loadComponent: () => import('./features/brands/brand-list/brand-list.component').then(m => m.BrandListComponent) },
+  { path: 'brands/:id', title: 'Brand – FreshCart', loadComponent: () => import('./features/brands/brand-details/brand-details.component').then(m => m.BrandDetailsComponent) },
+  { path: 'categories', title: 'Categories – FreshCart', loadComponent: () => import('./features/categories/category-list/category-list.component').then(m => m.CategoryListComponent) },
+  { path: 'categories/:id', title: 'Category – FreshCart', loadComponent: () => import('./features/categories/category-details/category-details.component').then(m => m.CategoryDetailsComponent) },
+  { path: 'cart', title: 'Cart – FreshCart', canActivate: [authGuard], loadComponent: () => import('./features/cart/cart.component').then(m => m.CartComponent) },
+  { path: 'wishlist', title: 'Wishlist – FreshCart', canActivate: [authGuard], loadComponent: () => import('./features/wishlist/wishlist.component').then(m => m.WishlistComponent) },
+  { path: 'checkout', title: 'Checkout – FreshCart', canActivate: [authGuard], loadComponent: () => import('./features/checkout/checkout.component').then(m => m.CheckoutComponent) },
+  { path: 'orders', title: 'Orders – FreshCart', canActivate: [authGuard], loadComponent: () => import('./features/orders/orders.component').then(m => m.OrdersComponent) },
+  { path: 'allorders', title: 'Orders – FreshCart', canActivate: [authGuard], loadComponent: () => import('./features/orders/orders.component').then(m => m.OrdersComponent) },
+  { path: 'change-password', title: 'Change password – FreshCart', canActivate: [authGuard], loadComponent: () => import('./features/auth/change-password/change-password.component').then(m => m.ChangePasswordComponent) },
+  { path: 'login', title: 'Log in – FreshCart', loadComponent: () => import('./features/auth/login/login.component').then(m => m.LoginComponent) },
+  { path: 'register', title: 'Sign up – FreshCart', loadComponent: () => import('./features/auth/register/register.component').then(m => m.RegisterComponent) },
+  { path: 'signup', title: 'Sign up – FreshCart', loadComponent: () => import('./features/auth/register/register.component').then(m => m.RegisterComponent) },
+  { path: 'forgot-password', title: 'Forgot password – FreshCart', loadComponent: () => import('./features/auth/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent) },
+  { path: 'forget-password', title: 'Forgot password – FreshCart', loadComponent: () => import('./features/auth/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent) },
+  { path: 'profile', title: 'Profile – FreshCart', canActivate: [authGuard], loadComponent: () => import('./features/profile/profile.component').then(m => m.ProfileComponent) },
+  { path: 'profile/orders', title: 'Order History – FreshCart', canActivate: [authGuard], loadComponent: () => import('./features/orders/orders.component').then(m => m.OrdersComponent) },
+  { path: 'contact', title: 'Contact Us – FreshCart', loadComponent: () => import('./features/info/info-page.component').then(m => m.InfoPageComponent) },
+  { path: 'privacy', title: 'Privacy Policy – FreshCart', loadComponent: () => import('./features/info/info-page.component').then(m => m.InfoPageComponent) },
+  { path: 'terms', title: 'Terms of Service – FreshCart', loadComponent: () => import('./features/info/info-page.component').then(m => m.InfoPageComponent) },
+  { path: 'cookies', title: 'Cookie Policy – FreshCart', loadComponent: () => import('./features/info/info-page.component').then(m => m.InfoPageComponent) },
+  { path: 'help', title: 'Help Center – FreshCart', loadComponent: () => import('./features/info/info-page.component').then(m => m.InfoPageComponent) },
+  { path: 'shipping', title: 'Shipping Info – FreshCart', loadComponent: () => import('./features/info/info-page.component').then(m => m.InfoPageComponent) },
+  { path: 'returns', title: 'Returns & Refunds – FreshCart', loadComponent: () => import('./features/info/info-page.component').then(m => m.InfoPageComponent) },
+  { path: 'track-order', title: 'Track Order – FreshCart', loadComponent: () => import('./features/info/info-page.component').then(m => m.InfoPageComponent) },
+  { path: '**', redirectTo: '' }
+];

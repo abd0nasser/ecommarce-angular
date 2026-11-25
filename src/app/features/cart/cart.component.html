@@ -1,0 +1,33 @@
+<div class="page-head"><div class="crumb"><a routerLink="/">Home</a><span>/</span><b>Shopping Cart</b></div><h1>Shopping Cart</h1><p>Review your items before checkout</p></div>
+@if (loading()) { <div class="ld">Loading…</div> }
+@else if (!cart()?.data?.products?.length) {
+  <div class="empty big-empty"><div class="empty-ic">🛒</div><h3>Your cart is empty</h3><p>Looks like you haven't added anything to your cart yet. Start exploring our products!</p><a class="btn" routerLink="/products">Start Shopping</a></div>
+}
+@else {
+<div class="two">
+<div>
+  @for (i of cart().data.products; track i.product.id) {
+  <div class="line">
+    <a [routerLink]="['/products', i.product.id]"><img [src]="i.product.imageCover" [alt]="i.product.title"></a>
+    <div class="line-info">
+      <a [routerLink]="['/products', i.product.id]"><b>{{ i.product.title }}</b></a>
+      <span class="unit">{{ i.price | egp }} each</span>
+      <div class="line-actions">
+        <div class="qty"><button aria-label="Less" (click)="setQty(i.product.id, i.count - 1)">−</button><b>{{ i.count }}</b><button aria-label="More" (click)="setQty(i.product.id, i.count + 1)">+</button></div>
+        <button class="rm" (click)="remove(i.product.id)">Remove</button>
+      </div>
+    </div>
+    <div class="line-total">{{ (i.price * i.count) | egp }}</div>
+  </div> }
+  <button class="btn out rm-all" (click)="clear()">Clear Cart</button>
+</div>
+<div class="sum">
+  <h3>Order Summary</h3>
+  <div class="sum-row"><span>Items</span><b>{{ cart().numOfCartItems }}</b></div>
+  <div class="sum-row"><span>Subtotal</span><b>{{ cart().data.totalCartPrice | egp }}</b></div>
+  <div class="sum-row free"><span>Shipping</span><b>Free</b></div>
+  <div class="sum-total"><span>Total</span><span class="t">{{ cart().data.totalCartPrice | egp }}</span></div>
+  <a class="btn alt checkout-btn" routerLink="/checkout">Proceed to Checkout →</a>
+  <a class="btn out cont" routerLink="/products">Continue Shopping</a>
+</div></div>
+}

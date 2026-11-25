@@ -1,0 +1,11 @@
+<div class="page-head"><div class="crumb"><a routerLink="/">Home</a><span>/</span><a routerLink="/profile">My Account</a><span>/</span><b>Order History</b></div><h1>Order History</h1><p>Track and review your past orders</p></div>
+@for (o of orders(); track o.id) {
+<div class="ord">
+  <div class="ord-top"><div><b>Order #{{ o.id }}</b><span class="ord-date">{{ o.createdAt | date:'mediumDate' }}</span></div>
+    <div class="ord-tags"><span class="tag" [class.paid]="o.isPaid">{{ o.isPaid ? 'Paid' : 'Not paid' }}</span><span class="tag">{{ o.paymentMethodType === 'card' ? 'Online payment' : 'Cash on delivery' }}</span><span class="tag" [class.del]="o.isDelivered">{{ o.isDelivered ? 'Delivered' : 'Processing' }}</span></div></div>
+  <div class="ord-body">
+    <div class="it">@for (i of o.cartItems; track i._id) { <img [src]="i.product.imageCover" [title]="i.product.title + ' × ' + i.count" [alt]="i.product.title"> } <span class="more">+{{ o.cartItems.length }} items</span></div>
+    <div class="ord-side"><span>{{ o.shippingAddress?.city }}</span><b class="ord-total">{{ o.totalOrderPrice | egp }}</b></div>
+  </div>
+</div>
+} @empty { @if (!loading()) { <div class="empty big-empty"><div class="empty-ic">📦</div><h3>No orders yet</h3><p>Orders you place will show up here.</p><a class="btn" routerLink="/products">Start shopping</a></div> } }

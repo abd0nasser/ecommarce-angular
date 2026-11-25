@@ -1,0 +1,5 @@
+<div class="page-head"><div class="crumb"><a routerLink="/">Home</a><span>/</span><b>Wishlist</b></div><h1>My Wishlist</h1><p>Your saved favorites</p></div>
+@if (items().length) { <div class="grid">@for (p of items(); track p.id) { <app-product-card [p]="p" /> }</div> }
+@else if (!loading()) {
+  <div class="empty big-empty"><div class="empty-ic">♡</div><h3>Your wishlist is empty</h3><p>Browse products and save your favorites here.</p><a class="btn" routerLink="/products">Browse Products</a></div>
+}

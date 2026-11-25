@@ -1,0 +1,1 @@
+import{V as Da}from"./main-A5PI2APR.js";var t=class r{transform(e){return e==null?``:`${Number(e).toLocaleString(`en-US`)} EGP`}static ɵfac=function(i){return new(i||r)};static ɵpipe=Da({name:`egp`,type:r,pure:!0})};export{t};

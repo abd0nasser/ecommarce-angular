@@ -1,0 +1,28 @@
+<div class="page-banner violet">
+  <div class="w">
+    <nav class="pb-crumb">
+      <a routerLink="/">Home</a><span>/</span><a routerLink="/brands">Brands</a><span>/</span
+      ><span>{{ brand()?.name || "Loading..." }}</span>
+    </nav>
+    <div class="pb-row">
+      <div class="pb-ic">🏷</div>
+      <div>
+        <h1>{{ brand()?.name || "Brand" }}</h1>
+        <p>{{ items().length }} products</p>
+      </div>
+    </div>
+  </div>
+</div>
+@if (items().length) {
+  <div class="grid">
+    @for (p of items(); track p.id) {
+      <app-product-card [p]="p" />
+    }
+  </div>
+} @else if (brand()) {
+  <div class="empty">
+    <h3>No products yet</h3>
+    <p>This brand has nothing in stock right now.</p>
+    <a class="btn" routerLink="/products">All products</a>
+  </div>
+}

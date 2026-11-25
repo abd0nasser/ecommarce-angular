@@ -1,0 +1,1 @@
+import{Bt as te,St as h,a as l,i as c,n as d,vt as ar}from"./main-A5PI2APR.js";var m=class{api=h(d);auth=h(c);router=h(ar);toast=h(l);err=te(``);busy=te(!1);run(b,p){this.busy.set(!0),this.err.set(``),b.subscribe({next:r=>{this.busy.set(!1),p(r)},error:r=>{this.busy.set(!1),this.err.set(r.error?.message||`Something went wrong`)}})}};export{m as t};

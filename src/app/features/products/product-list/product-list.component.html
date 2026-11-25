@@ -1,0 +1,15 @@
+<div class="page-banner"><div class="w"><nav class="pb-crumb"><a routerLink="/">Home</a><span>/</span><span>{{ title() }}</span></nav><div class="pb-row"><div class="pb-ic">🛍</div><div><h1>{{ title() }}</h1><p>{{ subtitle() }}</p></div></div></div></div>
+<div class="w pl-wrap">
+  @if (hasFilters()) {
+    <div class="active-filters"><span>Active Filters:</span>
+      @if (catObj()) { <a class="fchip cat" routerLink="/products">🗂 {{ catObj()!.name }} <span class="x">✕</span></a> }
+      @if (subObj()) { <a class="fchip sub" routerLink="/products">📁 {{ subObj()!.name }} <span class="x">✕</span></a> }
+      @if (brandObj()) { <a class="fchip brand" routerLink="/products">🏷 {{ brandObj()!.name }} <span class="x">✕</span></a> }
+      <a class="clear-all" routerLink="/products">Clear all</a>
+    </div>
+  }
+  @if (!loading()) { <div class="showing">Showing {{ list().length }} product{{ list().length === 1 ? '' : 's' }}</div> }
+  @if (loading()) { <div class="loading"><div class="spin"></div><p>Loading products...</p></div> }
+  @else if (list().length) { <div class="prod-grid">@for (p of list(); track p.id) { <app-product-card [p]="p" /> }</div> }
+  @else { <div class="empty"><div class="ebox">📦</div><h3>No Products Found</h3><p>{{ hasFilters() ? 'No products match your current filters.' : 'Products will appear here once available.' }}</p>@if (hasFilters()) { <a class="btn" routerLink="/products">View All Products</a> }</div> }
+</div>
